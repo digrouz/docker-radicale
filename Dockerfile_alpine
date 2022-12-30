@@ -1,0 +1,42 @@
+FROM digrouz/alpine-s6:latest
+LABEL maintainer "DI GREGORIO Nicolas <nicolas.digregorio@gmail.com>"
+
+ARG RADICALE_VERSION='3.1.8'
+
+### Environment variables
+ENV LANG='en_US.UTF-8' \
+    LANGUAGE='en_US.UTF-8' \
+    TERM='xterm'  \
+    RADICALE_VERSION="${RADICALE_VERSION}"
+
+# Copy config files
+COPY root/ /
+
+### Install Application
+RUN set -x && \
+    apk upgrade --no-cache && \
+    apk add --no-cache --virtual=build-deps \
+      py3-pip \
+      py3-wheel \
+    && \
+    apk add --no-cache --virtual=run-deps \
+      python3 \
+      py3-passlib \
+      py3-vobject \
+      py3-defusedxml \
+      py3-dateutil \
+      py3-setuptools \
+    && \
+    pip install --upgrade --no-cache radicale=="${RADICALE_VERSION}" && \
+    apk del --no-cache --purge \
+      build-deps  \
+    && \
+    rm -rf /tmp/* \
+           /var/cache/apk/*  \
+           /var/tmp/* 
+
+### Volume
+VOLUME ["/data"]
+
+### Expose ports
+EXPOSE 5232
