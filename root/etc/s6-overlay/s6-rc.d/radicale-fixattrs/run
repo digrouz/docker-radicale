@@ -1,4 +1,4 @@
 #!/command/with-contenv sh
 
-chown -R appuser:appuser /config /opt/nzbhydra2
-chmod -R g+w /config /opt/nzbhydra2
+chown -R appuser:appuser /data
+chmod -R g+w /data
