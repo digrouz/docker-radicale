@@ -25,7 +25,7 @@ RUN set -x && \
     && \
     python3 -m venv /opt/radicale && \
     /opt/radicale/bin/pip install --upgrade --no-cache \
-      Radicale[bcrypt,ldap]=="${RADICALE_VERSION}" 
+      Radicale[bcrypt,ldap]=="${RADICALE_VERSION}"  \
       argon2_cffi \
       pytz \
     && \
