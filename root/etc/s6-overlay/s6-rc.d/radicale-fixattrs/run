@@ -1,4 +1,4 @@
 #!/command/with-contenv sh
 
 chown -R appuser:appuser /data
-chmod -R g+w /data
+chmod -R g+w,o-rwx /data
