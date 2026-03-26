@@ -26,7 +26,7 @@ spec:
         pathType: {{ .pathType }}
         backend:
           service:
-            name: {{ include "helper.fullname" . }}
+            name: {{ include "helper.fullname" . }}-svc
             port:
               number: {{ $.Values.service.port }}
       {{- end }}

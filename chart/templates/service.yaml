@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "helper.fullname" . }}
+  name: {{ include "helper.fullname" . }}-svc
   labels: {{- include "helper.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
