@@ -1,0 +1,45 @@
+{{- define "deployment" }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "helper.fullname" . }}
+  labels: {{- include "helper.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {{- include "helper.selectorLabels" . | nindent 4 }}
+  template:
+    metadata:
+      labels: {{- include "helper.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+          {{- range .Values.env }}
+          - name: {{ .name }}
+            value: {{ .value | quote }}
+          {{- end }}
+        volumeMounts:
+        - name: data
+          mountPath: /data
+        ports:
+        - containerPort: 5232
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5232
+          initialDelaySeconds: 10
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 5232
+          initialDelaySeconds: 5
+          periodSeconds: 10
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: {{ include "helper.fullname" . }}-pvc
+{{- end }}

@@ -1,0 +1,42 @@
+# Default values for docker-radicale Helm chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image:
+  repository: docker.io/digrouz/radicale
+  pullPolicy: Always
+  tag: "latest"
+
+service:
+  type: ClusterIP
+  port: 5232
+
+persistence:
+  enabled: true
+  storageClass: ""
+  accessMode: ReadWriteOnce
+  size: 1Gi
+
+ingress:
+  enabled: false
+  annotations: {}
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+
+# Gateway API configuration
+gateway:
+  enabled: false
+  className: gatewayclass
+  listeners:
+    - name: http
+      port: 80
+      protocol: HTTP
+      hostname: "*"
+      tls: {}
+
+# Additional environment variables for Radicale can be added here
+# env: []

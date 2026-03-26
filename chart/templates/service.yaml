@@ -1,0 +1,15 @@
+{{- define "service" }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "helper.fullname" . }}
+  labels: {{- include "helper.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: 5232
+      protocol: TCP
+      name: http
+  selector: {{- include "helper.selectorLabels" . | nindent 4 }}
+{{- end }}
