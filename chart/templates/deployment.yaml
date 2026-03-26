@@ -6,8 +6,8 @@ metadata:
 spec:
   replicas: 1
   selector:
-    matchLabels: 
-      {{- include "helper.selectorLabels" . | nindent 4 }}
+    matchLabels:
+      {{- include "helper.selectorLabels" . | nindent 8 }}
   template:
     metadata:
       labels: {{- include "helper.selectorLabels" . | nindent 8 }}
