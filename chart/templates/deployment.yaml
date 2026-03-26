@@ -1,4 +1,3 @@
-{{- define "deployment" }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -42,4 +41,3 @@ spec:
       - name: data
         persistentVolumeClaim:
           claimName: {{ include "helper.fullname" . }}-pvc
-{{- end }}
