@@ -9,7 +9,7 @@
 
 {{/* Generate full release name */}}
 {{- define "helper.fullname" -}}
-{{- printf "%s-%s" .Release.Name (include "helper.name" .) | trunc 63 | trimSuffix "-" -}}
+{{- printf "%s" (include "helper.name" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
 {{/* Labels for resources */}}
