@@ -1,8 +1,8 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ include "docker-radicale.fullname" . }}-pvc
-  labels: {{- include "docker-radicale.labels" . | nindent 4 }}
+  name: {{ include "helper.fullname" . }}-pvc
+  labels: {{- include "helper.labels" . | nindent 4 }}
 spec:
   accessModes:
     - {{ .Values.persistence.accessMode }}
