@@ -28,13 +28,13 @@ spec:
         - containerPort: 5232
         livenessProbe:
           httpGet:
-            path: /health
+            path: /
             port: 5232
           initialDelaySeconds: 10
           periodSeconds: 30
         readinessProbe:
           httpGet:
-            path: /health
+            path: /
             port: 5232
           initialDelaySeconds: 5
           periodSeconds: 10
