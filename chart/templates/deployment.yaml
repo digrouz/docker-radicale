@@ -31,13 +31,13 @@ spec:
             path: /
             port: 5232
           initialDelaySeconds: 10
-          periodSeconds: 30
+          periodSeconds: 60
         readinessProbe:
           httpGet:
             path: /
             port: 5232
-          initialDelaySeconds: 5
-          periodSeconds: 10
+          initialDelaySeconds: 10
+          periodSeconds: 20
       volumes:
       - name: data
         persistentVolumeClaim:
