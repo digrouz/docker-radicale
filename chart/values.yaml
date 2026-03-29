@@ -2,35 +2,89 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+# -- Override the chart name
+nameOverride: ""
+# -- Override the full release name
+fullnameOverride: ""
+
 image:
+  # -- Container image repository
   repository: docker.io/digrouz/radicale
+  # -- Image pull policy
   pullPolicy: Always
-  tag: "latest"
+  # -- Image tag (defaults to Chart.appVersion)
+  tag: ""
+
+# -- Image pull secrets for private registries
+imagePullSecrets: []
+
+serviceAccount:
+  # -- Whether to create a ServiceAccount
+  create: true
+  # -- Annotations to add to the ServiceAccount
+  annotations: {}
+  # -- Name of the ServiceAccount (generated if not set)
+  name: ""
+
+# -- Annotations to add to the pod
+podAnnotations: {}
+
+# -- Pod-level security context
+podSecurityContext: {}
+  # fsGroup: 1000
+
+# -- Container-level security context
+securityContext: {}
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
 
 service:
+  # -- Kubernetes Service type
   type: ClusterIP
+  # -- Service port
   port: 5232
 
 persistence:
+  # -- Enable persistent storage
   enabled: true
+  # -- Storage class (leave empty for default)
   storageClass: ""
+  # -- Access mode for the PVC
   accessMode: ReadWriteOnce
+  # -- Size of the persistent volume
   size: 1Gi
+  # -- Annotations for the PVC
+  annotations: {}
+  # -- Use an existing PVC instead of creating one
+  existingClaim: ""
 
 ingress:
+  # -- Enable Ingress resource
   enabled: false
+  # -- Ingress class name
+  className: ""
+  # -- Annotations for the Ingress
   annotations: {}
+  # -- Ingress host configuration
   hosts:
     - host: chart-example.local
       paths:
         - path: /
           pathType: ImplementationSpecific
+  # -- TLS configuration for the Ingress
   tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
 
 # Gateway API configuration
 gateway:
+  # -- Enable Gateway API resource
   enabled: false
+  # -- Gateway class name
   className: gatewayclass
+  # -- Gateway listeners
   listeners:
     - name: http
       port: 80
@@ -38,5 +92,25 @@ gateway:
       hostname: "*"
       tls: {}
 
-# Additional environment variables for Radicale can be added here
-# env: []
+# -- Container resource requests and limits
+resources: {}
+  # limits:
+  #   cpu: 200m
+  #   memory: 256Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+# -- Node selector for pod scheduling
+nodeSelector: {}
+
+# -- Tolerations for pod scheduling
+tolerations: []
+
+# -- Affinity rules for pod scheduling
+affinity: {}
+
+# -- Additional environment variables for the container
+env: []
+  # - name: EXAMPLE_VAR
+  #   value: "example-value"
