@@ -55,8 +55,8 @@ Create the name of the service account to use
 */}}
 {{- define "radicale.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create -}}
-{{- default (include "radicale.fullname" .) .Values.serviceAccount.name -}}
+{{- default (include "radicale.fullname" .) .Values.serviceAccount.name -}}-sa
 {{- else -}}
-{{- default "default" .Values.serviceAccount.name -}}
+{{- default "default" .Values.serviceAccount.name -}}-sa
 {{- end -}}
 {{- end -}}
