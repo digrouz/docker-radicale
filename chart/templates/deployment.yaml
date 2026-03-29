@@ -71,7 +71,7 @@ spec:
         - name: data
           {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:
-            claimName: {{ .Values.persistence.existingClaim | default (printf "%s-data" (include "radicale.fullname" .)) }}
+            claimName: {{ .Values.persistence.existingClaim | default (printf "%s-data-pvc" (include "radicale.fullname" .)) }}
           {{- else }}
           emptyDir: {}
           {{- end }}

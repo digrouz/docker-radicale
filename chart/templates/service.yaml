@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "radicale.fullname" . }}
+  name: {{ include "radicale.fullname" . }}-svc
   labels:
     {{- include "radicale.labels" . | nindent 4 }}
 spec:
