@@ -67,6 +67,12 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /data
+            {{- if .Values.config }}
+            - name: config
+              mountPath: /etc/radicale/config
+              subPath: config
+              readOnly: true
+            {{- end }}
       volumes:
         - name: data
           {{- if .Values.persistence.enabled }}
@@ -75,6 +81,11 @@ spec:
           {{- else }}
           emptyDir: {}
           {{- end }}
+        {{- if .Values.config }}
+        - name: config
+          configMap:
+            name: {{ include "radicale.fullname" . }}-config
+        {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
